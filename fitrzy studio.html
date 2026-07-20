@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FITRZ STUDIO</title>
+  
+  <style>
+    /* ========================================== */
+    /* GLOBAL & RESET CSS */
+    /* ========================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    /* ========================================== */
+    /* VIDEO BACKGROUND (HALAMAN LOGIN) */
+    /* ========================================== */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    /* ========================================== */
+    /* HALAMAN LOGIN */
+    /* ========================================== */
+    #page-login {
+      display: block; /* Halaman default */
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 340px;
+      padding: 30px;
+      border-radius: 25px;
+      background: rgba(20, 20, 20, 0.45);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 30px #00e1ff, 0 0 60px rgba(0, 225, 255, 0.2);
+      text-align: center;
+      animation: muncul 1s;
+    }
+
+    @keyframes muncul {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .profile {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid cyan;
+      box-shadow: 0 0 25px cyan;
+      margin-bottom: 20px;
+    }
+
+    .login-box h1 {
+      color: white;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .login-box p {
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      outline: none;
+      border-radius: 15px;
+      background: #151515;
+      color: white;
+      font-size: 17px;
+      margin-bottom: 20px;
+    }
+
+    .login-box input::placeholder {
+      color: #888;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(45deg, #00d9ff, #006eff);
+      color: white;
+      transition: 0.3s;
+      box-shadow: 0 0 20px cyan;
+    }
+
+    .login-box button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px cyan, 0 0 60px #00d9ff;
+    }
+
+    /* ========================================== */
+    /* HALAMAN DASHBOARD */
+    /* ========================================== */
+    #page-dashboard {
+      display: none; /* Disembunyikan dulu sampai user login */
+      background: #050505;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      padding: 20px;
+      padding-bottom: 110px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .anime {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #00d9ff;
+      box-shadow: 0 0 30px #00d9ff;
+      margin-top: 20px;
+    }
+
+    .header h2 {
+      color: #fff;
+      margin-top: 15px;
+      font-size: 28px;
+    }
+
+    .header p {
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .menu {
+      animation: fade 0.4s;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* TOMBOL ORDER */
+    .order-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 18px;
+      border: none;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00d9ff, #005eff);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+      transition: 0.3s;
+    }
+
+    .order-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 35px #00d9ff;
+    }
+
+    /* CARD PESANAN */
+    .card {
+      margin-top: 20px;
+      padding: 20px;
+      background: #111;
+      border-radius: 20px;
+      border: 1px solid #222;
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+    }
+
+    .card h3 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #00ff99;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      background: #00d9ff;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* BOTTOM NAVIGATION */
+    .bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 75px;
+      background: #0b0b0b;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #222;
+      box-shadow: 0 -5px 25px rgba(0, 217, 255, 0.2);
+    }
+
+    .bottom button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .bottom button:hover {
+      color: #00d9ff;
+      transform: scale(1.1);
+    }
+
+    /* RESPONSIVE & SCROLLBAR */
+    @media (max-width: 500px) {
+      .login-box {
+        width: 90%;
+      }
+      .profile {
+        width: 100px;
+        height: 100px;
+      }
+      .login-box h1 {
+        font-size: 25px;
+      }
+    }
+
+    body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: #00d9ff;
+      border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- SEC: LOGIN PAGE -->
+  <!-- ========================================== -->
+  <div id="page-login">
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src="1000221620.mp4" type="video/mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="login-box">
+      <img src="https://i.imgur.com/3q7X8gT.png" class="profile" alt="Profile Logo">
+      <h1>FITRZ STUDIO</h1>
+      <p>Silahkan Masukkan Nama</p>
+      <input type="text" id="username" placeholder="Masukkan Nama">
+      <button onclick="login()">MASUK WEBSITE</button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SEC: DASHBOARD PAGE -->
+  <!-- ========================================== -->
+  <div id="page-dashboard">
+    <div class="dashboard">
+
+      <!-- HEADER -->
+      <div class="header">
+        <img src="https://wallpapercave.com/wp/wp9386586.jpg" class="anime" alt="Avatar Anime">
+        <h2 id="halo"></h2>
+        <p>Selamat Datang Di Fitrz Studio</p>
+      </div>
+
+      <!-- TAB 1: BERANDA -->
+      <div class="menu" id="beranda">
+        <h2 style="color:white; margin-bottom:20px;">BERANDA</h2>
+        <button class="order-btn" onclick="bukaOrder()">
+          🔥 FITRA LEST GO ORDER SEKARANGG
+        </button>
+
+        <div id="listOrder" style="display:none; margin-top:20px;">
+          <h3 style="color:white; margin-bottom:15px;">Pilih Layanan</h3>
+
+          <button class="order-btn" onclick="order('Order Map Mount Percp - Dekor Tipis','8000')">
+            🗺️ Order Map Mount Percp - Dekor Tipis <br>Rp8.000
+          </button>
+
+          <button class="order-btn" onclick="order('Order Map Mount Percp - Dekor Full','14000')">
+            🏔️ Order Map Mount Percp - Dekor Full <br>Rp14.000
+          </button>
+
+          <button class="order-btn" onclick="order('Order Map Club - Dekor Tipis','30000+')">
+            🏢 Order Map Club - Dekor Tipis <br>Mulai Rp30.000
+          </button>
+
+          <button class="order-btn" onclick="order('Order Map Club - Dekor Full','100000+')">
+            🏢 Order Map Club - Dekor Full <br>Mulai Rp100.000
+          </button>
+
+          <button class="order-btn" onclick="order('Pasang Summitkit / Club Kit','10000')">
+            ⛰️ Pasang Summitkit / Club Kit <br>Rp10.000
+          </button>
+
+          <button class="order-btn" onclick="order('Obstacle Sulit','5000')">
+            🎯 Obstacle Sulit <br>Rp5.000
+          </button>
+
+          <button class="order-btn" onclick="order('Obstacle On Ol','3000')">
+            🎯 Obstacle On Ol <br>Rp3.000
+          </button>
+
+          <button class="order-btn" onclick="order('Logo Map Mount / Club','5000')">
+            🎨 Logo Map <br>Rp5.000
+          </button>
+
+          <button class="order-btn" onclick="order('Pasang Fitur','15000')">
+            ⚡ Pasang Fitur <br>Rp15.000
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: PESANAN -->
+      <div class="menu" id="pesanan" style="display:none;">
+        <h2 style="color:white;">Pesanan Aktif</h2>
+        <div class="card">
+          <h3 id="namaPesanan">Belum Ada Pesanan</h3>
+          <p id="statusPesanan">Silahkan lakukan order</p>
+          <button id="konfirmasi" style="display:none;" onclick="selesai()">
+            Konfirmasi
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 3: CUSTOMER SERVICE -->
+      <div class="menu" id="cs" style="display:none;">
+        <h2 style="color:white;">Customer Service</h2>
+        <button class="order-btn" onclick="window.open('https://wa.me/6288708585088', '_blank')">
+          Chat WhatsApp
+        </button>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom">
+      <button onclick="home()">🏠<br>Beranda</button>
+      <button onclick="aktif()">📦<br>Pesanan</button>
+      <button onclick="customer()">💬<br>CS</button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC -->
+  <!-- ========================================== -->
+  <script>
+    // Cek jika pengguna sudah pernah login sebelumnya
+    window.onload = function() {
+      let savedUser = localStorage.getItem("fitrz_user");
+      if (savedUser) {
+        tampilkanDashboard(savedUser);
+      }
+    };
+
+    // Fungsi Login
+    function login() {
+      let namaInput = document.getElementById("username").value.trim();
+      if (namaInput === "") {
+        alert("Masukkan Nama!");
+        return;
+      }
+      localStorage.setItem("fitrz_user", namaInput);
+      tampilkanDashboard(namaInput);
+    }
+
+    // Pindah ke Dashboard
+    function tampilkanDashboard(nama) {
+      document.getElementById("page-login").style.display = "none";
+      document.getElementById("page-dashboard").style.display = "block";
+      document.getElementById("halo").innerHTML = "Halo, " + nama;
+    }
+
+    // Buka List Layanan
+    function bukaOrder() {
+      document.getElementById("listOrder").style.display = "block";
+    }
+
+    // Navigasi Tab Bottom
+    function home() {
+      document.getElementById("beranda").style.display = "block";
+      document.getElementById("pesanan").style.display = "none";
+      document.getElementById("cs").style.display = "none";
+    }
+
+    function aktif() {
+      document.getElementById("beranda").style.display = "none";
+      document.getElementById("pesanan").style.display = "block";
+      document.getElementById("cs").style.display = "none";
+    }
+
+    function customer() {
+      document.getElementById("beranda").style.display = "none";
+      document.getElementById("pesanan").style.display = "none";
+      document.getElementById("cs").style.display = "block";
+    }
+
+    // Fungsi Selesai Pesanan
+    function selesai() {
+      document.getElementById("statusPesanan").innerHTML = "✅ Pesanan Sudah Selesai";
+      document.getElementById("konfirmasi").style.display = "none";
+    }
+
+    // Fungsi Melakukan Order
+    function order(nama, harga) {
+      document.getElementById("namaPesanan").innerHTML = nama;
+      document.getElementById("statusPesanan").innerHTML = "🟡 Proses";
+
+      setTimeout(function() {
+        document.getElementById("statusPesanan").innerHTML = "✅ Pesanan Telah Selesai";
+        document.getElementById("konfirmasi").style.display = "block";
+      }, 5000);
+
+      let user = localStorage.getItem("fitrz_user") || "Pengunjung";
+      let pesan = "Halo Kak, saya ingin order.%0A%0A" +
+                  "Nama : " + encodeURIComponent(user) + "%0A" +
+                  "Pesanan : " + encodeURIComponent(nama) + "%0A" +
+                  "Harga : Rp" + harga;
+
+      window.open("https://wa.me/6288708585088?text=" + pesan, "_blank");
+    }
+  </script>
+
+</body>
+</html>
